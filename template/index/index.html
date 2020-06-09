@@ -1,110 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
-    <script src="../../static/js/vue.min.js"></script>
-    <script src="../../static/js/setSize.js"></script>
-    <script src="../common/menu.js"></script>
-    <link rel="stylesheet" href="../../static/css/menu.css">
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/swiper.min.css">
-    <script src="../../static/js/swiper.min.js"></script>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <script src="../../static/js/vue.min.js"></script>
+  <script src="../../static/js/setSize.js"></script>
+  <script src="../common/menu.js"></script>
+  <link rel="stylesheet" href="../../static/css/menu.css">
+  <link rel="stylesheet" href="../../static/css/reset.css">
+  <link rel="stylesheet" href="../../static/css/swiper.min.css">
+  <script src="../../static/js/swiper.min.js"></script>
 </head>
 <style>
-    .container {
-        padding: 0.6rem 0;
-    }
-    .list_box {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0 0.5rem;
-    }
+  .container {
+    padding: 0.6rem 0;
+  }
 
-    .list_item {
-        width: calc(50% - 0.2rem);
-        box-sizing: border-box;
-        padding: 10px;
-        background: #fff;
-        margin-bottom: 0.3rem;
-        border-radius: 2px;
-    }
-    .list_item:nth-child(2n) {
-        margin-left: 0.4rem;
-    }
+  .list_box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
+  }
 
-    .list_item img {
-        width: 100%;
-    }
+  .list_item {
+    width: calc(50% - 0.2rem);
+    box-sizing: border-box;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 0.3rem;
+    border-radius: 2px;
+  }
 
-    .list_item .detail {
-    }
+  .list_item:nth-child(2n) {
+    margin-left: 0.4rem;
+  }
 
-    .list_item .detail p {
-        font-size: 0.7rem;
-        line-height: 1.2rem;
-        color: #5b5ca5;
-    }
+  .list_item img {
+    width: 100%;
+  }
 
-    .list_item .detail .money {
-        color: rgba(251, 179, 17, 0.98);
-    }
+  .list_item .detail {
+  }
 
-    .send_btn {
-        display: block;
-        width: 80%;
-        height: 1.5rem;
-        line-height: 1.5rem;
-        margin: 0.5rem auto 0;
-        text-align: center;
-        color: #fff;
-        font-size: 0.75rem;
-        background: #898AF7;
-        border-radius: 1rem;
-    }
+  .list_item .detail p {
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+    color: #5b5ca5;
+  }
 
-    .swiper-container {
-        width: calc(100% - 1rem);
-        height: 6rem;
-        border-radius: 0.1rem;
-        margin: 0 auto 1rem;
-    }
+  .list_item .detail .money {
+    color: rgba(251, 179, 17, 0.98);
+  }
 
-    .cover {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  .send_btn {
+    display: block;
+    width: 80%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    margin: 0.5rem auto 0;
+    text-align: center;
+    color: #fff;
+    font-size: 0.75rem;
+    background: #898AF7;
+    border-radius: 1rem;
+  }
+
+  .swiper-container {
+    width: calc(100% - 1rem);
+    height: 6rem;
+    border-radius: 0.1rem;
+    margin: 0 auto 0.5rem;
+  }
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .notice_box {
+    margin: 0.5rem 0;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .notice {
+    width:calc(100% - 1.7rem) ;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    overflow: hidden;
+    font-size: 0.78rem;
+    color: #212149;
+  }
+  .notice_box img{
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .notice_detail {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+
+  .popup {
+    position: fixed;
+    z-index: 1001;
+    width: 80%;
+    left: 50%;
+    top:50%;
+    margin: -6rem 0 0 -40%;
+    background: #fff;
+    border-radius: 0.5rem;
+  }
+
+  .pop_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+  .pop_head i{
+    display: block;
+    width: 1.4rem;
+    height:1.4rem;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 1.6rem;
+    background: #e40000;
+  }
+  .pop_head i img{
+    width: 1rem;
+    height: 1rem;
+  }
+  .pop_body {
+    padding: 1rem 1.5rem;
+  }
+  .pop_body p{
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .pop_body p span{
+    color: orange;
+  }
+
+  .operate_btn {
+    background:#ff8300 ;
+    color:#fff;
+    font-size: 0.75rem;
+    display: block;
+    width: 5rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: 1rem auto 0;
+  }
 </style>
 <body>
 <div class="page_box" id="app">
-    <div class="page_head">首页</div>
-    <div class="container">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"  v-for="(item,index) in banner" :key="index" >
-                    <img :src="item.cover" class="cover">
-                </div>
-            </div>
-            <!-- 如果需要分页器 -->
-            <div class="swiper-pagination"></div>
-
+  <div class="page_head">首页</div>
+  <div class="container">
+    <!-- 轮播 -->
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in banner" :key="index">
+          <img :src="item.cover" class="cover">
         </div>
-        <div class="list_box">
-            <div v-for="(item,index) in list" :key="index" class="list_item">
-                <img :src="item.icon">
-                <div class="detail">
-                    <p>价值：{{item.value}}</p>
-                    <p>收益效率：<i class="money">{{item.benefit*100+'%'}}</i></p>
-                    <p>交易时间：{{item.date}}</p>
-                    <p>当日额度：{{item.quota}}</p>
-                    <p>账户额度：{{item.overage}}</p>
-                </div>
-                <span class="send_btn">排单</span>
-            </div>
-        </div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
     </div>
-    <bottom-menu :menu='0'></bottom-menu>
+    <!-- 通知 -->
+    <div class="notice_box">
+      <img src="../../static/img/notice.png">
+      <div class="notice" @click="gotoDetail">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item,index) in notices" :key="index">
+            <p class="notice_detail">{{item.name.substr(0,1)+'**'}}成功抢到了{{item.reward}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 数据列 -->
+    <div class="list_box">
+      <div v-for="(item,index) in list" :key="index" class="list_item">
+        <img :src="item.icon">
+        <div class="detail">
+          <p>价值：{{item.value}}</p>
+          <p>收益效率：<i class="money">{{item.benefit*100+'%'}}</i></p>
+          <p>交易时间：{{item.date}}</p>
+          <p>当日额度：{{item.quota}}</p>
+          <p>账户额度：{{item.overage}}</p>
+        </div>
+        <span class="send_btn" @click="chooseItem(item)">排单</span>
+      </div>
+    </div>
+  </div>
+  <bottom-menu :menu='0'></bottom-menu>
+  <div v-if="isTip">
+    <div class="mask"></div>
+    <div class="popup">
+      <div class="pop_head">
+        <span>提示</span>
+        <i @click="isTip=false">
+          <img src="../../static/img/close_white.png">
+        </i>
+      </div>
+      <div class="pop_body">
+        <p>预约抢购 <span>{{diamond.name}}</span></p>
+        <p>需要质押 <span>273.55BOCC</span></p>
+        <span class="operate_btn">质押BOCC</span>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 <script>
@@ -121,7 +231,8 @@
                     benefit: '0.05',
                     date: '13:00-15:00',
                     quota: '100/100',
-                    overage: '3/3'
+                    overage: '3/3',
+                    name:'赤焰红钻'
                 }, {
                     id: 2,
                     icon: '../../static/img/demo/icon2.png',
@@ -129,7 +240,8 @@
                     benefit: '0.05',
                     date: '15:00-17:00',
                     quota: '100/100',
-                    overage: '3/3'
+                    overage: '3/3',
+                    name:'优雅紫钻'
                 }, {
                     id: 3,
                     icon: '../../static/img/demo/icon3.png',
@@ -137,7 +249,8 @@
                     benefit: '0.05',
                     date: '17:00-19:00',
                     quota: '100/100',
-                    overage: '3/3'
+                    overage: '3/3',
+                    name:'金典黄钻'
                 }, {
                     id: 4,
                     icon: '../../static/img/demo/icon4.png',
@@ -145,36 +258,71 @@
                     benefit: '0.05',
                     date: '19:00-21:00',
                     quota: '100/100',
-                    overage: '3/3'
+                    overage: '3/3',
+                    name:'至尊黑钻'
                 },
             ],
-            banner:[
+            banner: [
                 {
-                    url:'',
+                    url: '',
                     cover: '../../static/img/banner/banner1.jpg',
-                } , {
-                    url:'',
+                }, {
+                    url: '',
                     cover: '../../static/img/banner/banner2.jpg',
-                } , {
-                    url:'',
+                }, {
+                    url: '',
                     cover: '../../static/img/banner/banner3.jpg',
-                } ,
-            ]
+                },
+            ],
+            notices:[
+                {
+                    name:'你觉得呢',
+                    reward:'至尊黑钻'
+                },{
+                    name:'hello',
+                    reward:'赤焰红钻'
+                },{
+                    name:'一场梦',
+                    reward:'优雅紫钻'
+                },{
+                    name:'理解',
+                    reward:'金典黄钻'
+                },
+            ],
+            diamond:{},
+            isTip:false
         },
         mounted: function () {
 
         },
 
-        methods: {}
+        methods: {
+            chooseItem:function(obj){
+                this.isTip = true;
+                this.diamond = obj;
+            },
+
+            gotoDetail:function(){
+                window.location.href = '../index/orderDetail.html'
+            }
+        }
     })
 
-    window.onload = function() {
-        var mySwiper = new Swiper ('.swiper-container', {
-            autoplay:true,
+    window.onload = function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,
             loop: true, // 循环模式选项
             // 如果需要分页器
             pagination: {
                 el: '.swiper-pagination',
+            },
+        });
+
+        var notice = new Swiper('.notice', {
+            loop: true, // 循环模式选项
+            direction: 'vertical',
+            autoplay: {
+                delay: 5000,//5秒切换一次
             },
         });
     }

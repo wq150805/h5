@@ -142,6 +142,22 @@ input:-ms-input-placeholder {
   letter-spacing: 4px;
 }
 
+.page_head i {
+  position: fixed;
+  top:0;
+  left:0;
+  height: 2.4rem;
+  width:2.4rem;
+  z-index: 100;
+  text-align: center;
+  line-height: 2.4rem;
+}
+
+.page_head i img{
+  width: 1rem;
+  height: 1rem;
+}
+
 .page_box {
   padding :2.5rem 0 2.6rem 0;
   position: fixed;
@@ -151,4 +167,14 @@ input:-ms-input-placeholder {
   top: 0;
   overflow-y: auto;
   background: #F7F6FB;
+}
+
+.mask {
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
 }

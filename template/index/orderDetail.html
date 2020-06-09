@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排单详情</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <script src="../common/menu.js"></script>
+    <link rel="stylesheet" href="../../static/css/menu.css">
+    <link rel="stylesheet" href="../../static/css/reset.css">
+</head>
+<style>
+    .page_box {
+        background: #fff;
+    }
+    .detail_box{
+        padding: 0 0.8rem;
+    }
+    .list_line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 0.75rem;
+        color: #333;
+    }
+    .line_left span{
+        display: block;
+        position: relative;
+        height: 1.2rem;
+        line-height: 1.2rem;
+        border-radius: 1rem;
+        width: 4.5rem;
+        text-align: center;
+        background: coral;
+        color: #fff;
+    }
+    .line_left i{
+        display: block;
+        position: absolute;
+        color: #999999;
+        border-radius: 100%;
+        width: 0.8rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        background-color: #FFF;
+        top: -0.1rem;
+        left: 0;
+        font-size: 0.63rem;
+        border: 1px solid #bbb;
+    }
+    .line_right {
+        text-align: right;
+    }
+    .list_line div p:last-child{
+        margin-top: 0.5rem;
+    }
+
+    .end {
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 0.75rem;
+        color: #bbb;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../static/img/back_white.png">
+        </i>
+        排单详情
+    </div>
+    <div class="container">
+        <div class="detail_box">
+            <div class="list_line" v-for="(item,index) in order" :key="index">
+                <div class="line_left">
+                    <span><i>优</i>接单中</span>
+                    <p>{{item.createdTime}}</p>
+                </div>
+                <div class="line_right">
+                    <p>{{item.reward}}</p>
+                    <p>{{item.name.substr(0,1)+'**'}}</p>
+                </div>
+            </div>
+            <div class="end">
+                <p v-if="hasMore">努力加载中</p>
+                <p v-else>—— END ——</p>
+            </div>
+        </div>
+
+    </div>
+    <!--<bottom-menu :menu='0'></bottom-menu>-->
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            order:[
+                {
+                    name:'你觉得呢',
+                    reward:'至尊黑钻',
+                    createdTime:'2020-06-09 23:12:30',
+                    status:1
+                },{
+                    name:'hello',
+                    reward:'赤焰红钻',
+                    createdTime:'2020-06-09 23:12:30',
+                    status:1
+                },{
+                    name:'一场梦',
+                    reward:'优雅紫钻',
+                    createdTime:'2020-06-09 23:12:30',
+                    status:1
+                },{
+                    name:'理解',
+                    reward:'金典黄钻',
+                    createdTime:'2020-06-09 23:12:30',
+                    status:1
+                },
+            ],
+            hasMore:false
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            comeback(){
+                window.location.href = '../index/index.html'
+            }
+        }
+    })
+</script>
+</html>
