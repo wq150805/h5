@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <script src="../common/menu.js"></script>
+    <link rel="stylesheet" href="../../static/css/menu.css">
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/swiper.min.css">
+    <script src="../../static/js/swiper.min.js"></script>
+</head>
+<style>
+    .container {
+        padding: 0.6rem 0;
+    }
+    .list_box {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 0.5rem;
+    }
+
+    .list_item {
+        width: calc(50% - 0.2rem);
+        box-sizing: border-box;
+        padding: 10px;
+        background: #fff;
+        margin-bottom: 0.3rem;
+        border-radius: 2px;
+    }
+    .list_item:nth-child(2n) {
+        margin-left: 0.4rem;
+    }
+
+    .list_item img {
+        width: 100%;
+    }
+
+    .list_item .detail {
+    }
+
+    .list_item .detail p {
+        font-size: 0.7rem;
+        line-height: 1.2rem;
+        color: #5b5ca5;
+    }
+
+    .list_item .detail .money {
+        color: rgba(251, 179, 17, 0.98);
+    }
+
+    .send_btn {
+        display: block;
+        width: 80%;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        margin: 0.5rem auto 0;
+        text-align: center;
+        color: #fff;
+        font-size: 0.75rem;
+        background: #898AF7;
+        border-radius: 1rem;
+    }
+
+    .swiper-container {
+        width: calc(100% - 1rem);
+        height: 6rem;
+        border-radius: 0.1rem;
+        margin: 0 auto 1rem;
+    }
+
+    .cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">首页</div>
+    <div class="container">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"  v-for="(item,index) in banner" :key="index" >
+                    <img :src="item.cover" class="cover">
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+
+        </div>
+        <div class="list_box">
+            <div v-for="(item,index) in list" :key="index" class="list_item">
+                <img :src="item.icon">
+                <div class="detail">
+                    <p>价值：{{item.value}}</p>
+                    <p>收益效率：<i class="money">{{item.benefit*100+'%'}}</i></p>
+                    <p>交易时间：{{item.date}}</p>
+                    <p>当日额度：{{item.quota}}</p>
+                    <p>账户额度：{{item.overage}}</p>
+                </div>
+                <span class="send_btn">排单</span>
+            </div>
+        </div>
+    </div>
+    <bottom-menu :menu='0'></bottom-menu>
+</div>
+</body>
+<script>
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                {
+                    id: 1,
+                    icon: '../../static/img/demo/icon1.png',
+                    value: '500-1500',
+                    benefit: '0.05',
+                    date: '13:00-15:00',
+                    quota: '100/100',
+                    overage: '3/3'
+                }, {
+                    id: 2,
+                    icon: '../../static/img/demo/icon2.png',
+                    value: '500-1500',
+                    benefit: '0.05',
+                    date: '15:00-17:00',
+                    quota: '100/100',
+                    overage: '3/3'
+                }, {
+                    id: 3,
+                    icon: '../../static/img/demo/icon3.png',
+                    value: '500-1500',
+                    benefit: '0.05',
+                    date: '17:00-19:00',
+                    quota: '100/100',
+                    overage: '3/3'
+                }, {
+                    id: 4,
+                    icon: '../../static/img/demo/icon4.png',
+                    value: '500-1500',
+                    benefit: '0.05',
+                    date: '19:00-21:00',
+                    quota: '100/100',
+                    overage: '3/3'
+                },
+            ],
+            banner:[
+                {
+                    url:'',
+                    cover: '../../static/img/banner/banner1.jpg',
+                } , {
+                    url:'',
+                    cover: '../../static/img/banner/banner2.jpg',
+                } , {
+                    url:'',
+                    cover: '../../static/img/banner/banner3.jpg',
+                } ,
+            ]
+        },
+        mounted: function () {
+
+        },
+
+        methods: {}
+    })
+
+    window.onload = function() {
+        var mySwiper = new Swiper ('.swiper-container', {
+            autoplay:true,
+            loop: true, // 循环模式选项
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+    }
+</script>
+</html>

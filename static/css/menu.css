@@ -1,0 +1,43 @@
+.menu_box {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fbfbfb;
+    z-index: 100;
+}
+
+.menu_box a {
+    display: block;
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #999;
+    padding: 0.2rem 0;
+}
+
+.menu_box img {
+    width: 1rem;
+    height: 1rem;
+}
+
+.menu_box p {
+    margin-top: 0.2rem;
+}
+
+.menu_box .choose {
+    color: #898AF7;
+}
+
+.menu_box .choose .icon {
+    display: none;
+}
+
+.menu_box .selected {
+    display: none;
+}
+
+.menu_box .choose .selected {
+    display: inline-block;
+}
