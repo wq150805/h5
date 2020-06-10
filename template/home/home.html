@@ -10,13 +10,183 @@
     <link rel="stylesheet" href="../../static/css/reset.css">
 </head>
 <style>
+    .page_head {
+        border: none;
+        background: none;
+    }
 
+    .page_box {
+        padding-top: 0;
+    }
+
+    .bg {
+        padding: 4rem 1rem 3rem;
+        background: linear-gradient(to bottom right, #8c8dff, #a2a3ef);
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        font-size: 0.78rem;
+    }
+
+    .avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.2rem;
+        box-sizing: border-box;
+        border: 1px solid #fff;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+    .avatar img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+
+    .info {
+        width: calc(100% - 3.2rem);
+        margin-left: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .info p:last-child {
+        font-size: 0.75rem;
+        margin-top: 0.6rem;
+    }
+
+    .assets {
+        display: flex;
+        margin-top: 1.2rem;
+    }
+
+    .assets div {
+        flex: 1;
+        text-align: center;
+        font-size: 0.78rem;
+        color: #fff;
+    }
+
+    .assets div p:first-child {
+        margin-bottom: 0.4rem;
+    }
+
+    .record {
+        display: flex;
+        margin: -1.5rem auto 0;
+        background: #fff;
+        padding: 0.8rem 0;
+        box-sizing: border-box;
+        border-radius: 0.4rem;
+        width: 90%;
+    }
+
+    .record div {
+        flex: 1;
+        text-align: center;
+        color: #898AF7;
+        font-size: 0.75rem;
+    }
+
+    .record div img {
+        width: 1.2rem;
+    }
+
+    .record div p {
+        margin-top: 0.3rem;
+    }
+
+    .other {
+        margin-top: 1rem;
+        padding: 0.5rem 0;
+        background: #fff;
+    }
+
+    .other_line {
+        display: flex;
+        padding: 0.5rem 0;
+    }
+
+    .other_line div {
+        flex: 1;
+        text-align: center;
+        align-items: center;
+    }
+
+    .other_line .other_item div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 2rem;
+    }
+
+    .other_item img {
+        width: 2rem;
+        height: auto;
+    }
+
+    .other_line p {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+    }
 </style>
 <body>
 <div class="page_box" id="app">
     <div class="page_head">我的</div>
     <div class="container">
-
+        <div class="bg">
+            <div class="user">
+                <div class="avatar">
+                    <img src="../../static/img/avatar.jpg"/>
+                </div>
+                <div class="info">
+                    <p>啦啦啦啦啦</p>
+                    <p>ID/手机：15963458956</p>
+                </div>
+            </div>
+            <div class="assets">
+                <div>
+                    <p>0.0</p>
+                    <p>金币</p>
+                </div>
+                <div>
+                    <p>0.0</p>
+                    <p>白条</p>
+                </div>
+                <div>
+                    <p>0.0</p>
+                    <p>总资产</p>
+                </div>
+            </div>
+        </div>
+        <div class="record">
+            <div v-for="(item,index) in records" :key="index">
+                <img :src="item.icon">
+                <p>{{item.name}}</p>
+            </div>
+        </div>
+        <div class="other">
+            <div class="other_line">
+                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index<3">
+                    <div>
+                        <img :src="item.icon">
+                    </div>
+                    <p>{{item.name}}</p>
+                </div>
+            </div>
+            <div class="other_line">
+                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index>=3">
+                    <div>
+                        <img :src="item.icon">
+                    </div>
+                    <p>{{item.name}}</p>
+                </div>
+            </div>
+        </div>
     </div>
     <bottom-menu :menu='2'></bottom-menu>
 </div>
@@ -25,14 +195,54 @@
     var app = new Vue({
         el: '#app',
         data: {
+            records:[
+                {
+                    url:'',
+                    icon:'../../static/img/home/gm.png',
+                    name:'购买记录'
+                },{
+                    url:'',
+                    icon:'../../static/img/home/zr.png',
+                    name:'转让记录'
+                },{
+                    url:'',
+                    icon:'../../static/img/home/zy.png',
+                    name:'质押记录'
+                },
+            ],
+            others:[
+                {
+                    url:'',
+                    icon:'../../static/img/home/safe.png',
+                    name:'安全中心'
+                }, {
+                    url:'',
+                    icon:'../../static/img/home/certification.png',
+                    name:'实名认证'
+                }, {
+                    url:'',
+                    icon:'../../static/img/home/card.png',
+                    name:'我的银行卡'
+                }, {
+                    url:'',
+                    icon:'../../static/img/home/team.png',
+                    name:'我的团队'
+                }, {
+                    url:'',
+                    icon:'../../static/img/home/invite.png',
+                    name:'邀请好友'
+                }, {
+                    url:'',
+                    icon:'../../static/img/home/set.png',
+                    name:'设置'
+                }
+            ]
         },
         mounted: function () {
 
         },
 
-        methods: {
-
-        }
+        methods: {}
     })
 </script>
 </html>

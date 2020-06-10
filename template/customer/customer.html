@@ -10,13 +10,111 @@
     <link rel="stylesheet" href="../../static/css/reset.css">
 </head>
 <style>
+    .page_box {
+        background: #fff;
+    }
+    .container {
+        padding: 1rem 0.8rem 1rem;
+    }
+    .customer_title {
+        text-align: center;
+        width: 60%;
+        height: 7rem;
+        background: url("../../static/img/title_box.png")no-repeat center;
+        background-size: 100% auto;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding-top: 4rem;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+    }
 
+    .customer_detail {
+        margin-top: 4rem;
+    }
+
+    .customer_type {
+        display: flex;
+        justify-content: center;
+    }
+
+    .customer_type div{
+        width: 3.5rem;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        text-align: center;
+        background: rgba(137, 138, 247, 0.99);
+        border-radius: 100%;
+    }
+
+    .customer_type div:last-child{
+        margin-left: 4rem;
+    }
+
+    .customer_type img {
+        width: 1rem;
+        height: auto;
+    }
+
+    .common_problem {
+        font-size: 0.75rem;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #898AF7;
+    }
+
+    .btn_box {
+        padding: 0 10%;
+        margin-top: 1.2rem;
+    }
+    .btn_box p {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+    .btn_box span {
+        display: block;
+        width: 5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        text-align: center;
+        color: #333;
+        background: #f6eeb8;
+        border-radius: 0.2rem;
+    }
 </style>
 <body>
 <div class="page_box" id="app">
     <div class="page_head">客服中心</div>
     <div class="container">
-
+        <p class="customer_title">客服中心</p>
+        <div class="customer_detail">
+            <div class="customer_type">
+                <div @click="gotoPage">
+                    <img src="../../static/img/help.png">
+                </div>
+                <div>
+                    <img src="../../static/img/ask.png">
+                </div>
+            </div>
+            <div class="common_problem">
+                <p>常见问题</p>
+                <div class="btn_box">
+                    <p>
+                        <span>抢购问题</span>
+                        <span>充值问题</span>
+                    </p>
+                    <p>
+                        <span>账号问题</span>
+                        <span>实名问题</span>
+                    </p>
+                    <p>
+                        <span>其他问题</span>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <bottom-menu :menu='1'></bottom-menu>
 </div>
@@ -31,7 +129,9 @@
         },
 
         methods: {
-
+            gotoPage:function () {
+                window.location.href = '../customer/feedback.html'
+            }
         }
     })
 </script>

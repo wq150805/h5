@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问题反馈</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/element-ui.css">
+    <script src="../../static/js/element-ui.js"></script>
+</head>
+<style>
+    .page_box {
+        background: #fff;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .input_item {
+        font-size: 0.78rem;
+        margin-bottom:1rem;
+    }
+
+    .lab{
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    .text_box{
+        padding-right: 0.1rem;
+    }
+    .text_box textarea{
+        border-color: #f2f2f2!important;
+        border-radius: 2px;
+        resize: none;
+        box-sizing: border-box;
+        padding: 0.5rem;
+        background: #f2f2f2;
+        outline: none;
+        width: 100%;
+        min-height: 7rem;
+        line-height: 1rem;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #898AF7;
+    }
+
+    .avatar-uploader-icon {
+        display: block;
+        width: 4rem;
+        height: 4rem;
+        border: 1px solid #bbb;
+        border-radius: 2px;
+        position: relative;
+    }
+
+    .avatar-uploader-icon::after {
+        content: '';
+        position: absolute;
+        width: 1.2rem;
+        height: 1.2rem;
+        background: url("../../static/img/add.png")no-repeat;
+        background-size: 100% 100%;
+        left: 50%;
+        top: 50%;
+        margin: -0.6rem 0 0 -0.6rem;
+    }
+
+    .avatar {
+        max-width: 8rem;
+        height: 4rem;
+        display: block;
+        border-radius: 6px;
+        margin-right: 0.8rem;
+    }
+
+    .submit_btn {
+        width: 90%;
+        height: 1.6rem;
+        line-height: 1.6rem;
+        text-align: center;
+        color: #fff;
+        background:linear-gradient(#6e6ec7, #898AF7);
+        border-radius: 4px;
+        font-size: 0.78rem;
+        margin: 2rem auto 0;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../static/img/back_white.png">
+        </i>
+        问题反馈
+    </div>
+    <div class="container" v-loading="loading">
+        <div class="input_item">
+            <span class="lab">问题反馈</span>
+            <div class="text_box">
+                <textarea placeholder="请填写内容" v-model="problem"></textarea>
+            </div>
+        </div>
+        <div class="input_item">
+            <span class="lab">上传凭证</span>
+            <div>
+                <el-upload
+                        :data="param"
+                        :action="uploadUrl"
+                        :show-file-list="false"
+                        :on-success="imgSuccess"
+                        :before-upload="imgUpload">
+                    <img v-if="images" :src="images" class="avatar">
+                    <i class="avatar-uploader-icon" v-else></i>
+                </el-upload>
+            </div>
+        </div>
+
+        <p class="submit_btn">确定提交</p>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            param: {folder: 'web/feedback'},
+            uploadUrl: '/common/upload',
+            problem:'',
+            images:'',
+            loading:false
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            // 上传图标
+            imgUpload(file) {
+                this.loading = true;
+                const isLt10M = file.size / 1024 / 1024 < 10;
+                if (!isLt10M) {
+                    this.setLoading(false);
+                    this.$message.error('上传图像图片大小不能超过 10MB!');
+                }
+                return isLt10M;
+            },
+
+            // 图标上传回调
+            imgSuccess(res, file) {
+                // this.imageUrl = URL.createObjectURL(file.raw);
+                if (file.response.success) {
+                    this.imgUrl = file.response.data;
+                    this.$message.success('上传成功！');
+                } else {
+                    this.$message.error('人脸检测失败，请重新上传');
+                }
+                this.loading = false;
+            },
+            comeback(){
+                window.location.href = '../customer/customer.html';
+            }
+        }
+    })
+</script>
+</html>
