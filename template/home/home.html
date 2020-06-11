@@ -60,24 +60,33 @@
     }
 
     .assets {
+        background: #fff;
+        border-radius: 0.4rem;
+        padding: 0.8rem 0;
+        width: 90%;
+        margin: -1.5rem auto 0;
+    }
+    .assets_line {
         display: flex;
-        margin-top: 1.2rem;
+    }
+    .assets_line:first-child {
+        margin-bottom: 1rem;
     }
 
-    .assets div {
+    .assets .assets_line div {
         flex: 1;
         text-align: center;
         font-size: 0.78rem;
-        color: #fff;
+        color: #898AF7;
     }
 
-    .assets div p:first-child {
+    .assets .assets_line div p:first-child {
         margin-bottom: 0.4rem;
     }
 
     .record {
         display: flex;
-        margin: -1.5rem auto 0;
+        margin: 1rem auto 0;
         background: #fff;
         padding: 0.8rem 0;
         box-sizing: border-box;
@@ -148,18 +157,34 @@
                     <p>ID/手机：15963458956</p>
                 </div>
             </div>
-            <div class="assets">
-                <div>
+        </div>
+        <div class="assets">
+            <div class="assets_line">
+                <div @click="gotoDetail('../home/currency.html')">
                     <p>0.0</p>
                     <p>金币</p>
                 </div>
-                <div>
+                <div @click="gotoDetail('../home/baitiao.html')">
                     <p>0.0</p>
                     <p>白条</p>
                 </div>
                 <div>
                     <p>0.0</p>
                     <p>总资产</p>
+                </div>
+            </div>
+            <div class="assets_line">
+                <div @click="gotoDetail('../home/popularize.html')">
+                    <p>0.0</p>
+                    <p>累计收益</p>
+                </div>
+                <div @click="gotoDetail('../home/popularize.html')">
+                    <p>0.0</p>
+                    <p>推广收益</p>
+                </div>
+                <div>
+                    <p>0.0</p>
+                    <p>团队收益</p>
                 </div>
             </div>
         </div>
@@ -171,7 +196,7 @@
         </div>
         <div class="other">
             <div class="other_line">
-                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index<3">
+                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index<3" @click="gotoDetail(item.url)">
                     <div>
                         <img :src="item.icon">
                     </div>
@@ -179,7 +204,7 @@
                 </div>
             </div>
             <div class="other_line">
-                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index>=3">
+                <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index>=3"  @click="gotoDetail(item.url)">
                     <div>
                         <img :src="item.icon">
                     </div>
@@ -212,7 +237,7 @@
             ],
             others:[
                 {
-                    url:'',
+                    url:'../home/currency.html',
                     icon:'../../static/img/home/safe.png',
                     name:'安全中心'
                 }, {
@@ -242,7 +267,11 @@
 
         },
 
-        methods: {}
+        methods: {
+            gotoDetail:function(url){
+                window.location.href = url;
+            }
+        }
     })
 </script>
 </html>

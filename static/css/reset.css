@@ -137,7 +137,6 @@ input:-ms-input-placeholder {
   text-align: center;
   font-weight: bold;
   line-height: 2.4rem;
-  border-bottom: 1px solid #f2f2f2;
   background: #898AF7;
   letter-spacing: 4px;
 }
@@ -150,7 +149,7 @@ input:-ms-input-placeholder {
   width:2.4rem;
   z-index: 100;
   text-align: center;
-  line-height: 2.4rem;
+  line-height: 2.6rem;
 }
 
 .page_head i img{

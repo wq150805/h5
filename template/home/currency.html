@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>币</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <script src="../common/menu.js"></script>
+    <link rel="stylesheet" href="../../static/css/menu.css">
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <script src="../../static/js/jquery1.8.2.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+
+</head>
+<style>
+    .page_box {
+        background: #fff;
+        padding: 10rem 0 1rem 0;
+    }
+
+    .count_box {
+        position: fixed;
+        top: 2.4rem;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1rem 0;
+        color: #fff;
+        background: #898AF7;
+    }
+
+    .total {
+        position: relative;
+        margin-bottom: 1rem;
+        padding-bottom: 1.2rem;
+        font-size: 0.8rem;
+    }
+
+    .total p {
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .total a {
+        position: absolute;
+        right: 0.8rem;
+        bottom: 0;
+        color: #fad625;
+    }
+
+    .total img {
+        width: 0.8rem;
+        margin-right: 0.4rem;
+    }
+
+
+    .money {
+        display: flex;
+    }
+
+    .money div {
+        flex: 1;
+        display: block;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+    .money div:first-child {
+        border-right: 1px solid #fff;
+    }
+
+    .money div p {
+        line-height: 1.4rem;
+    }
+
+    .detail_box {
+        padding: 0 0.8rem;
+    }
+
+
+
+    .list_line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 0.75rem;
+        color: #333;
+    }
+
+    .line_left p {
+        display: flex;
+        align-items: center;
+        line-height: 1rem;
+    }
+
+    .line_left i {
+        display: block;
+        margin: 0 0.5rem;
+        border-left: 1px solid #333;
+        height: 0.8rem;
+    }
+
+    .line_right {
+        text-align: right;
+        color: #dd6161;
+    }
+
+    .list_line div p:last-child {
+        margin-top: 0.5rem;
+    }
+
+    .line_right .get_money {
+        color: #898AF7;
+    }
+
+    .end {
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 0.75rem;
+        color: #bbb;
+    }
+
+
+
+
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../static/img/back_white.png">
+        </i>
+        币
+    </div>
+    <div class="container" >
+        <div class="count_box" id="count">
+            <div class="total">
+                <p>
+                    <img src="../../static/img/home/diamond.png">
+                    <span>{{total}}</span>
+                </p>
+                <a  @click="transferAmount">划转</a>
+            </div>
+            <div class="money">
+                <div>
+                    <p>可用</p>
+                    <p>{{total-freeze}}</p>
+                </div>
+                <div>
+                    <p>冻结</p>
+                    <p>{{freeze}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="detail_box">
+            <div class="list_line" v-for="(item,index) in record" :key="index">
+                <div class="line_left">
+                    <p>赠送<i></i>{{item.reward}}</p>
+                    <p>{{item.createdTime}}</p>
+                </div>
+                <div class="line_right">
+                    <p :class="{'get_money':item.type===2}">{{item.type===1?'-':'+'}}{{item.deduction}}</p>
+                </div>
+            </div>
+            <div class="end">
+                <p v-if="hasMore">努力加载中</p>
+                <p v-else>—— END ——</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total:143,
+            freeze:10,
+            record: [
+                {
+                    type: 1,
+                    reward: 1300,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                }, {
+                    type: 2,
+                    reward: 1080,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 5
+                }, {
+                    type: 1,
+                    reward: 963,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                }, {
+                    type: 1,
+                    reward: 456,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                },{
+                    type: 1,
+                    reward: 1300,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                }, {
+                    type: 2,
+                    reward: 1080,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 5
+                }, {
+                    type: 1,
+                    reward: 963,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                }, {
+                    type: 1,
+                    reward: 456,
+                    createdTime: '2020-06-09 23:12:30',
+                    deduction: 2
+                },
+            ],
+            hasMore: false
+        },
+        mounted: function () {},
+
+        methods: {
+            transferAmount:function() {
+                if (this.total-this.freeze>50){
+                    window.location.href = '../home/transfer.html';
+                }else {
+                    showMsg('当前货币不足')
+                }
+            },
+            comeback() {
+                window.location.href = '../home/home.html';
+            }
+        }
+    })
+</script>
+</html>

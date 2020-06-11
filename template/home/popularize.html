@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>推广收益</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <script src="../common/menu.js"></script>
+    <link rel="stylesheet" href="../../static/css/menu.css">
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <script src="../../static/js/jquery1.8.2.min.js"></script>
+    <script src="../../static/js/common.js"></script>
+
+</head>
+<style>
+    .page_box {
+        background: #fff;
+        padding: 10rem 0 1rem 0;
+    }
+
+    .count_box {
+        position: fixed;
+        top: 2.4rem;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1rem 0 1.5rem;
+        color: #fff;
+        background: #898AF7;
+    }
+
+    .total {
+        position: relative;
+        margin-bottom: 1rem;
+        padding: 0 1rem 1.2rem;
+        font-size: 0.8rem;
+    }
+
+    .total p {
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .total p:first-child{
+        margin-bottom: 0.8rem;
+    }
+
+    .total a {
+        position: absolute;
+        right: 0.8rem;
+        bottom: 0;
+        color: #fad625;
+    }
+
+    .total img {
+        width: 0.8rem;
+        margin-right: 0.4rem;
+    }
+
+    .detail_box {
+        padding: 0 0.8rem;
+    }
+
+    .list_line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 0.75rem;
+        color: #333;
+    }
+
+    .line_left p {
+        display: flex;
+        align-items: center;
+        line-height: 1rem;
+    }
+
+    .line_left i {
+        display: block;
+        margin: 0 0.5rem;
+        border-left: 1px solid #333;
+        height: 0.8rem;
+    }
+
+    .list_line div p:last-child {
+        margin-top: 0.5rem;
+    }
+    .line_right {
+        text-align: right;
+        color: #898AF7;
+        font-size: 0.7rem;
+    }
+
+    .line_right p:last-child {
+        color: #bbb;
+    }
+
+    .end {
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 0.75rem;
+        color: #bbb;
+    }
+
+    .popup {
+        position: fixed;
+        z-index: 1001;
+        width: 80%;
+        left: 50%;
+        top:50%;
+        margin: -7rem 0 0 -40%;
+        background: #fff;
+        border-radius: 0.5rem;
+    }
+
+    .pop_head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.8rem;
+        font-size: 1rem;
+    }
+    .pop_head i{
+        display: block;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 1.4rem;
+        background: #e40000;
+    }
+    .pop_head i img{
+        width: 1rem;
+        height: 1rem;
+    }
+    .pop_body {
+        padding: 1rem;
+    }
+    .pop_body p{
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .pop_body p span{
+        color: orange;
+    }
+
+    .pop_body input{
+        border-color: #f2f2f2!important;
+        border-radius: 2px;
+        resize: none;
+        box-sizing: border-box;
+        padding: 0 0.5rem;
+        background: #f2f2f2;
+        outline: none;
+        width:calc(100% - 3rem) ;
+        line-height: 1.6rem;
+        font-size: 0.7rem;
+    }
+
+    .pop_body .tip {
+        font-size: 0.7rem;
+        color: #666;
+    }
+
+    .pop_body .error_line {
+        color: #dd6161;
+        font-size: 0.7rem;
+    }
+    .operate_btn {
+        background:#ff8300 ;
+        color:#fff;
+        font-size: 0.75rem;
+        display: block;
+        width: 5rem;
+        line-height: 1.8rem;
+        text-align: center;
+        margin: 1rem auto 0;
+        border-radius: 2px;
+    }
+
+
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../static/img/back_white.png">
+        </i>
+        推广收益
+    </div>
+    <div class="container" >
+        <div class="count_box" id="count">
+            <div class="total">
+                <p>推广收益</p>
+                <p>
+                    <img src="../../static/img/home/diamond.png">
+                    <span>{{total}}</span>
+                </p>
+                <a  @click="transferAmount">兑换</a>
+            </div>
+        </div>
+        <div class="detail_box">
+            <div class="list_line" v-for="(item,index) in record" :key="index">
+                <div class="line_left">
+                    <p>来自：{{item.name}}的推广</p>
+                    <p>{{item.createdTime}}</p>
+                </div>
+                <div class="line_right">
+                    <p>+{{item.add}}</p>
+                    <p>余额:{{item.overage}}</p>
+                </div>
+            </div>
+            <div class="end">
+                <p v-if="hasMore">努力加载中</p>
+                <p v-else>—— END ——</p>
+            </div>
+        </div>
+    </div>
+    <div v-if="isTip">
+        <div class="mask"></div>
+        <div class="popup">
+            <div class="pop_head">
+                <span>提示</span>
+                <i @click="isTip=false">
+                    <img src="../../static/img/close_white.png">
+                </i>
+            </div>
+            <div class="pop_body">
+                <p>推广收益： <span>{{total}}</span></p>
+                <p>兑换： <input placeholder="请填写兑换数量" type="number" v-model="money" @input="tip=''" min="100"/> </p>
+                <p class="tip">提示：一个推广兑换一个币，100起</p>
+                <p class="error_line">{{tip}}</p>
+                <span class="operate_btn" @click="exchange">兑换</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total:143,
+            isTip:false,
+            record: [
+                {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:8,
+                    overage: 143
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add: 15,
+                    overage: 135
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:13,
+                    overage: 120
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:10,
+                    overage: 107
+                },{
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:2,
+                    overage: 97
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:5,
+                    overage: 95
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:10,
+                    overage: 90
+                }, {
+                    name: '啦啦啦啦',
+                    createdTime: '2020-06-09 23:12:30',
+                    add:8,
+                    overage: 80
+                },
+            ],
+            hasMore: false,
+            money:100,
+            tip:''
+        },
+        mounted: function () {},
+
+        methods: {
+            transferAmount:function() {
+                if (this.total-this.freeze>50){
+
+                }else {
+                    showMsg('当前货币不足')
+                }
+            },
+            exchange() {
+               if (this.money<100){
+                   this.tip = '必须100起兑换'
+               }else {
+
+               }
+
+            },
+            comeback() {
+                window.location.href = '../home/home.html';
+            }
+        }
+    })
+</script>
+</html>

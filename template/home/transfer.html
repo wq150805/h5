@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>转让</title>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/element-ui.css">
+    <script src="../../static/js/element-ui.js"></script>
+</head>
+<style>
+    .page_box {
+        background: #fff;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .count {
+        position: relative;
+        margin-bottom: 1.2rem;
+        padding: 1.5rem 0;
+        text-align: center;
+        color: #fff;
+        font-size: 0.8rem;
+        background: #98ca7f;
+    }
+
+    .count p:first-child{
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    .count img {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 1rem;
+    }
+
+    .input_item {
+        font-size: 0.78rem;
+        margin-bottom:1rem;
+    }
+
+    .lab{
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    .text_box{
+        padding-right: 0.1rem;
+    }
+    .text_box input{
+        border-color: #f2f2f2!important;
+        border-radius: 2px;
+        resize: none;
+        box-sizing: border-box;
+        padding: 0 0.5rem;
+        background: #f2f2f2;
+        outline: none;
+        width: 100%;
+        line-height: 1.6rem;
+        font-size: 0.7rem;
+    }
+
+    .tip {
+        color: #bbb;
+        font-size: 0.7rem;
+    }
+    .error_tip {
+        color: #dd6161;
+        height: 1rem;
+        margin-top: 1rem;
+    }
+    .submit_btn {
+        width: 90%;
+        height: 1.6rem;
+        line-height: 1.6rem;
+        text-align: center;
+        color: #fff;
+        background:linear-gradient(#6e6ec7, #898AF7);
+        border-radius: 4px;
+        font-size: 0.78rem;
+        margin: 2rem auto 0;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../static/img/back_white.png">
+        </i>
+        转赠
+    </div>
+    <div class="container" v-loading="loading">
+        <div class="count">
+            <p>146</p>
+            <p>可用服务费</p>
+            <img src="../../static/img/home/yezi.png">
+        </div>
+        <div class="input_item">
+            <span class="lab">转赠数量</span>
+            <div class="text_box">
+                <input placeholder="请填写转赠数量" type="text" v-model="money" @input="setTip('','')"/>
+            </div>
+        </div>
+        <div class="input_item">
+            <span class="lab">对方账号</span>
+            <div class="text_box">
+                <input placeholder="请填写对方账号" type="text" v-model="account" @input="setTip('','')"/>
+            </div>
+        </div>
+        <div class="input_item">
+            <span class="lab">交易密码</span>
+            <div class="text_box">
+                <input placeholder="请填写交易密码" type="password" v-model="password" @input="setTip('','')"/>
+            </div>
+        </div>
+        <p class="tip">温馨提示：请确认转赠数量，一旦转赠不可退还</p>
+        <p class="tip error_tip">{{tip}}</p>
+        <p class="submit_btn" @click="submitForm">确定提交</p>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            money:'',
+            account: '',
+            password:'',
+            loading:false,
+            tip:'',
+            num:''
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+
+            // 图标上传回调
+            submitForm() {
+                if (this.money===''){
+                    this.setTip(0,'请输入转赠数量！');
+                }else if (this.account===''){
+                    this.setTip(1,'请输入对方账号！');
+                }else if (this.password===''){
+                    this.setTip(2,'请输入交易密码！');
+                }else {
+
+                }
+            },
+
+            setTip(num,text){
+                this.num = num;
+                this.tip = text;
+            },
+            comeback(){
+                window.location.href = '../home/currency.html';
+            }
+        }
+    })
+</script>
+</html>
