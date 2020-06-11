@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>推广收益</title>
+    <title>团队收益</title>
     <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/setSize.js"></script>
     <script src="../common/menu.js"></script>
@@ -114,84 +114,6 @@
         color: #bbb;
     }
 
-    .popup {
-        position: fixed;
-        z-index: 1001;
-        width: 80%;
-        left: 50%;
-        top:50%;
-        margin: -7rem 0 0 -40%;
-        background: #fff;
-        border-radius: 0.5rem;
-    }
-
-    .pop_head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0.8rem;
-        font-size: 1rem;
-    }
-    .pop_head i{
-        display: block;
-        width: 1.2rem;
-        height: 1.2rem;
-        border-radius: 100%;
-        text-align: center;
-        line-height: 1.4rem;
-        background: #e40000;
-    }
-    .pop_head i img{
-        width: 1rem;
-        height: 1rem;
-    }
-    .pop_body {
-        padding: 1rem;
-    }
-    .pop_body p{
-        margin-bottom: 1rem;
-        font-size: 0.85rem;
-    }
-
-    .pop_body p span{
-        color: orange;
-    }
-
-    .pop_body input{
-        border-color: #f2f2f2!important;
-        border-radius: 2px;
-        resize: none;
-        box-sizing: border-box;
-        padding: 0 0.5rem;
-        background: #f2f2f2;
-        outline: none;
-        width:calc(100% - 3rem) ;
-        line-height: 1.6rem;
-        font-size: 0.7rem;
-    }
-
-    .pop_body .tip {
-        font-size: 0.7rem;
-        color: #666;
-    }
-
-    .pop_body .error_line {
-        color: #dd6161;
-        font-size: 0.7rem;
-    }
-    .operate_btn {
-        background:#ff8300 ;
-        color:#fff;
-        font-size: 0.75rem;
-        display: block;
-        width: 5rem;
-        line-height: 1.8rem;
-        text-align: center;
-        margin: 1rem auto 0;
-        border-radius: 2px;
-    }
-
-
 </style>
 <body>
 <div class="page_box" id="app">
@@ -199,17 +121,17 @@
         <i @click="comeback">
             <img src="../../static/img/back_white.png">
         </i>
-        推广收益
+        团队收益
     </div>
     <div class="container" >
         <div class="count_box" id="count">
             <div class="total">
-                <p>推广收益</p>
+                <p>团队收益</p>
                 <p>
                     <img src="../../static/img/home/diamond.png" class="money_logo">
                     <span>{{total}}</span>
                 </p>
-                <a @click="transferAmount">兑换</a>
+                <a @click="sale">出售</a>
                 <img src="../../static/img/home/cover.png" class="cover">
             </div>
         </div>
@@ -227,24 +149,6 @@
             <div class="end">
                 <p v-if="hasMore">努力加载中</p>
                 <p v-else>—— END ——</p>
-            </div>
-        </div>
-    </div>
-    <div v-if="isTip">
-        <div class="mask"></div>
-        <div class="popup">
-            <div class="pop_head">
-                <span>提示</span>
-                <i @click="isTip=false">
-                    <img src="../../static/img/close_white.png">
-                </i>
-            </div>
-            <div class="pop_body">
-                <p>推广收益： <span>{{total}}</span></p>
-                <p>兑换： <input placeholder="请填写兑换数量" type="number" v-model="money" @input="tip=''" min="100"/> </p>
-                <p class="tip">提示：一个推广兑换一个币，100起</p>
-                <p class="error_line">{{tip}}</p>
-                <span class="operate_btn" @click="exchange">兑换</span>
             </div>
         </div>
     </div>
@@ -306,20 +210,8 @@
         mounted: function () {},
 
         methods: {
-            transferAmount:function() {
-                if (this.total>50){
-                    this.isTip = true;
-                }else {
-                    showMsg('当前货币不足')
-                }
-            },
-            exchange() {
-               if (this.money<100){
-                   this.tip = '必须100起兑换'
-               }else {
-
-               }
-
+            sale:function() {
+                window.location.href = '../home/productSale.html';
             },
             comeback() {
                 window.location.href = '../home/home.html';
