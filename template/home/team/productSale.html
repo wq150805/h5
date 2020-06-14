@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>转让</title>
-    <script src="../../static/js/vue.min.js"></script>
-    <script src="../../static/js/setSize.js"></script>
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/element-ui.css">
-    <script src="../../static/js/element-ui.js"></script>
+    <title>出售</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <link rel="stylesheet" href="../../../static/css/element-ui.css">
+    <script src="../../../static/js/element-ui.js"></script>
 </head>
 <style>
     .page_box {
@@ -42,15 +42,18 @@
     .input_item {
         font-size: 0.78rem;
         margin-bottom:1rem;
+        display: flex;
+        align-items: center;
     }
 
     .lab{
         display: block;
-        margin-bottom: 0.5rem;
+        width: 4rem;
         color: #333;
     }
     .text_box{
         padding-right: 0.1rem;
+        width: calc(100% - 4rem);
     }
     .text_box input{
         border-color: #f2f2f2!important;
@@ -85,31 +88,52 @@
         font-size: 0.78rem;
         margin: 2rem auto 0;
     }
+
+    .el-input__icon {
+       display: none;
+    }
+
+    .el-select {
+        width: 100%;
+    }
+
+    .text_box .el-input__inner {
+        height: 1.8rem;
+        line-height: 1.8rem;
+    }
 </style>
 <body>
 <div class="page_box" id="app">
     <div class="page_head">
         <i @click="comeback">
-            <img src="../../static/img/back_white.png">
+            <img src="../../../static/img/back_white.png">
         </i>
-        转赠
+        产品出售
     </div>
     <div class="container" v-loading="loading">
-        <div class="count">
-            <p>146</p>
-            <p>可用服务费</p>
-            <img src="../../static/img/home/yezi.png">
-        </div>
         <div class="input_item">
-            <span class="lab">转赠数量</span>
+            <span class="lab">团队收益</span>
             <div class="text_box">
-                <input placeholder="请填写转赠数量" type="text" v-model="money" @input="setTip('','')"/>
+                <input placeholder="请填写团队收益" type="number" v-model="benefit" @input="setTip('','')"/>
             </div>
         </div>
         <div class="input_item">
-            <span class="lab">对方账号</span>
+            <span class="lab">选择场次</span>
             <div class="text_box">
-                <input placeholder="请填写对方账号" type="text" v-model="account" @input="setTip('','')"/>
+                <el-select v-model="goods" placeholder="请选择场次" @change="setTip('','')">
+                    <el-option
+                            v-for="item in proOptions"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </div>
+        </div>
+        <div class="input_item">
+            <span class="lab">销售金额</span>
+            <div class="text_box">
+                <input placeholder="请填写销售金额" type="number" v-model="money" @input="setTip('','')"/>
             </div>
         </div>
         <div class="input_item">
@@ -118,9 +142,9 @@
                 <input placeholder="请填写交易密码" type="password" v-model="password" @input="setTip('','')"/>
             </div>
         </div>
-        <p class="tip">温馨提示：请确认转赠数量，一旦转赠不可退还</p>
+        <p class="tip">提示：点击选择商品可以看到商品价格</p>
         <p class="tip error_tip">{{tip}}</p>
-        <p class="submit_btn" @click="submitForm">确定提交</p>
+        <p class="submit_btn" @click="submitForm">确定出售</p>
     </div>
 </div>
 </body>
@@ -129,8 +153,18 @@
         el: '#app',
         data: {
             money:'',
-            account: '',
             password:'',
+            benefit:'',
+            goods:'',
+            proOptions: [
+                {
+                    id:1,
+                    name:'红钻(500~1000)'
+                }, {
+                    id:2,
+                    name:'黄钻(500~1000)'
+                },
+            ],
             loading:false,
             tip:'',
             num:''
@@ -143,12 +177,14 @@
 
             // 图标上传回调
             submitForm() {
-                if (this.money===''){
-                    this.setTip(0,'请输入转赠数量！');
-                }else if (this.account===''){
-                    this.setTip(1,'请输入对方账号！');
+                if (this.benefit===''){
+                    this.setTip(0,'请输入团队收益！');
+                }else if (this.goods===''){
+                    this.setTip(0,'请选择产品！');
+                }else if (this.money===''){
+                    this.setTip(2,'请输入销售金额！');
                 }else if (this.password===''){
-                    this.setTip(2,'请输入交易密码！');
+                    this.setTip(3,'请输入交易密码！');
                 }else {
 
                 }
@@ -159,7 +195,7 @@
                 this.tip = text;
             },
             comeback(){
-                window.location.href = '../home/currency.html';
+                window.location.href = 'teamBenefits.html';
             }
         }
     })

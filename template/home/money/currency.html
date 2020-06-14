@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>白条</title>
-    <script src="../../static/js/vue.min.js"></script>
-    <script src="../../static/js/setSize.js"></script>
-    <script src="../common/menu.js"></script>
-    <link rel="stylesheet" href="../../static/css/menu.css">
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <script src="../../static/js/jquery1.8.2.min.js"></script>
-    <script src="../../static/js/common.js"></script>
+    <title>币</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <script src="../../common/menu.js"></script>
+    <link rel="stylesheet" href="../../../static/css/menu.css">
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <script src="../../../static/js/jquery1.8.2.min.js"></script>
+    <script src="../../../static/js/common.js"></script>
 
 </head>
 <style>
@@ -133,18 +133,18 @@
 <div class="page_box" id="app">
     <div class="page_head">
         <i @click="comeback">
-            <img src="../../static/img/back_white.png">
+            <img src="../../../static/img/back_white.png">
         </i>
-        白条
+        币
     </div>
     <div class="container" >
         <div class="count_box" id="count">
             <div class="total">
                 <p>
-                    <img src="../../static/img/home/diamond.png">
+                    <img src="../../../static/img/home/diamond.png">
                     <span>{{total}}</span>
                 </p>
-                <a @click="transferAmount">兑换</a>
+                <a  @click="transferAmount">划转</a>
             </div>
             <div class="money">
                 <div>
@@ -160,7 +160,7 @@
         <div class="detail_box">
             <div class="list_line" v-for="(item,index) in record" :key="index">
                 <div class="line_left">
-                    <p>兑换{{item.reward}}个白条</p>
+                    <p>赠送<i></i>{{item.reward}}</p>
                     <p>{{item.createdTime}}</p>
                 </div>
                 <div class="line_right">
@@ -230,14 +230,14 @@
 
         methods: {
             transferAmount:function() {
-                if (this.total-this.freeze>0){
-                    window.location.href = '../home/exchange.html';
+                if (this.total-this.freeze>50){
+                    window.location.href = 'transfer.html';
                 }else {
                     showMsg('当前货币不足')
                 }
             },
             comeback() {
-                window.location.href = '../home/home.html';
+                window.location.href = '../home.html';
             }
         }
     })

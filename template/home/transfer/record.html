@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>转让记录</title>
+  <script src="../../../static/js/vue.min.js"></script>
+  <script src="../../../static/js/setSize.js"></script>
+  <script src="../../common/menu.js"></script>
+  <link rel="stylesheet" href="../../../static/css/menu.css">
+  <link rel="stylesheet" href="../../../static/css/reset.css">
+  <script src="../../../static/js/jquery1.8.2.min.js"></script>
+  <script src="../../../static/js/common.js"></script>
+
+</head>
+<style>
+  .menu {
+    position: relative;
+    display: flex;
+    margin-bottom: 0.5rem;
+    background: #fff;
+  }
+
+  .menu span {
+    flex: 1;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    font-size: 0.78rem;
+  }
+
+  .menu .choose {
+    color: #898AF7;
+  }
+
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 1.7rem;
+    width: 3rem;
+    height: 2px;
+    background: #898AF7;
+    transition: all 0.5s ease-out;
+  }
+
+  .list_line {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 0.75rem;
+    color: #333;
+    background: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .list_line .box{
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .order_info span{
+    line-height: 2rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .box div span:first-child {
+    margin-right: 0.5rem;
+  }
+
+  .order_info i {
+    color: orange;
+  }
+
+  .box:last-child {
+    border-bottom: none;
+  }
+  .box div {
+    line-height: 1.8rem;
+  }
+
+  .box div img{
+    width: 1.4rem;
+  }
+
+  .box .lab {
+    color: #999;
+  }
+
+
+  .pay_way {
+    justify-content: space-between;
+  }
+
+  .flex_box {
+    display: flex;
+    align-items: center;
+  }
+
+  .pay {
+    margin: 0 1rem ;
+  }
+
+  .end {
+    text-align: center;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 0.75rem;
+    color: #bbb;
+  }
+
+
+</style>
+<body>
+<div class="page_box" id="app">
+  <div class="page_head">
+    <i @click="comeback">
+      <img src="../../../static/img/back_white.png">
+    </i>
+    转让记录
+  </div>
+  <div class="container">
+    <div class="menu">
+      <span v-for="(item,index) in menus" :key="index" :class="{'choose':menuIndex===index}" @click="chooseMenu(index)">{{item}}</span>
+      <i class="underline" :style="'left:'+left+'rem'"></i>
+    </div>
+    <div class="detail_box">
+      <div class="list_line" v-for="(item,index) in record" :key="index">
+        <div class="box">
+          <div class="order_info">
+            <span>订单号</span>
+            <span>{{item.orderNum}}</span>
+          </div>
+        </div>
+        <div class="box">
+          <div class="order_info">
+            <span>订单金额(CNY)</span>
+            <i>{{item.price}}</i>
+          </div>
+          <div>
+            <span class="lab">买家</span>
+            <span>{{item.buyer}}</span>
+          </div>
+          <div>
+            <span class="lab">实名信息</span>
+            <span>{{item.trueName}}</span>
+          </div>
+          <div>
+            <span class="lab">手机号</span>
+            <span>{{item.phone}}</span>
+          </div>
+          <div>
+            <span class="lab">上一代昵称</span>
+            <span>{{item.userName}}</span>
+          </div>
+          <div>
+            <span class="lab">上一代手机号</span>
+            <span>{{item.userPhone}}</span>
+          </div>
+        </div>
+        <div class="box">
+          <div class="order_info"><span>我的收款方式</span></div>
+          <div>
+            <span class="lab">付款备注</span>
+            <span>{{item.remark}}</span>
+          </div>
+          <div class="pay_way flex_box">
+            <div class="flex_box">
+              <img src="../../../static/img/home/alipay.png" v-if="item.type===1">
+              <img src="../../../static/img/home/wxchat.png" v-if="item.type===2">
+              <img src="../../../static/img/home/bank.png" v-if="item.type===0">
+              <span class="pay">{{item.type===0?'银行卡':(item.type===1?'支付宝':'微信')}}</span>
+              <span>{{item.seller}}</span>
+            </div>
+           <div>{{item.selPhone}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="end">
+        <p v-if="hasMore">努力加载中</p>
+        <p v-else>—— END ——</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total: 143,
+            record: [
+                {
+                    orderNum:'18748',
+                    type:1,
+                    remark:'305793',
+                    seller:'孙悦',
+                    selPhone:'15959669874',
+                    buyer:'嘟嘟',
+                    price:'2371',
+                    trueName:'邱绍生',
+                    phone:'15859157859',
+                    userName:'嘻嘻哈哈',
+                    userPhone:'18060453698'
+                }
+            ],
+            hasMore: false,
+            menus: ['转让', '已完成', '取消/申诉'],
+            menuIndex: 0,
+            left: 1.7
+        },
+        mounted: function () {
+        },
+
+        methods: {
+            chooseMenu(index){
+                this.menuIndex = index;
+                if (index === 0) {
+                    this.left = 1.7;
+                } else if (index === 1) {
+                    this.left = 8.5;
+                } else {
+                    this.left = 15.1;
+                }
+            },
+            comeback() {
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

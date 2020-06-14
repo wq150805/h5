@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实名认证</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <link rel="stylesheet" href="../../../static/css/element-ui.css">
+    <script src="../../../static/js/element-ui.js"></script>
+</head>
+<style>
+    .page_box {
+        background: #fff;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .input_item {
+        width: 100%;
+        font-size: 0.78rem;
+        margin-bottom:1rem;
+    }
+
+    .lab{
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    .text_box{
+        display: flex;
+        padding-right: 0.1rem;
+    }
+    .text_box input{
+        border-color: #f2f2f2!important;
+        border-radius: 2px;
+        resize: none;
+        box-sizing: border-box;
+        padding: 0 0.5rem;
+        background: #f2f2f2;
+        outline: none;
+        width:100%;
+        line-height: 1.8rem;
+        font-size: 0.7rem;
+    }
+
+    .identity input {
+        width: calc(100% - 5rem);
+    }
+    .identity span{
+        display: block;
+        width: 5rem;
+        height: 1.8rem;
+        line-height: 1.8rem;
+        text-align: center;
+        color: #fff;
+        background:linear-gradient(#6e6ec7, #898AF7);
+        border-bottom-right-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+    .tip {
+        color: #bbb;
+        font-size: 0.7rem;
+    }
+    .error_tip {
+        color: #dd6161;
+        height: 1rem;
+        margin-top: 1rem;
+    }
+    .submit_btn {
+        width: 90%;
+        height: 1.8rem;
+        line-height: 1.8rem;
+        text-align: center;
+        color: #fff;
+        background:linear-gradient(#6e6ec7, #898AF7);
+        border-radius: 4px;
+        font-size: 0.78rem;
+        margin: 2rem auto 0;
+        border: 1px solid #6e6ec7;
+    }
+    .finish_box {
+        padding: 4rem 0;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6e6ec7;
+    }
+
+    .finish_box img{
+        width: 2rem;
+        margin-bottom: 1rem;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../../static/img/back_white.png">
+        </i>
+        实名认证
+    </div>
+    <div class="container" v-loading="loading" v-if="!isVerify">
+        <div class="input_item">
+            <span class="lab">身份证</span>
+            <div class="text_box">
+                <input placeholder="请填写身份证" type="number" v-model="idCard" @input="setTip('','')"/>
+            </div>
+        </div>
+        <div class="input_item">
+            <span class="lab">姓名</span>
+            <div class="text_box">
+                <input placeholder="请填写姓名" type="text" v-model="userName" @input="setTip('','')"/>
+            </div>
+        </div>
+        <p class="tip error_tip">{{tip}}</p>
+        <p class="submit_btn" @click="submitForm">确定提交</p>
+    </div>
+    <div class="finish_box" v-else>
+        <img src="../../../static/img/home/identify.png">
+        <p>恭喜！您已通过实名认证</p>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            idCard:'',
+            userName:'',
+            loading:false,
+            isVerify:false,
+            tip:'',
+            num:'',
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            getVerify(){
+
+            },
+
+
+            // 图标上传回调
+            submitForm() {
+                let cardPattern = /^[1-9][0-9]{5}(19|20)[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|30|31)|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}([0-9]|x|X)$/;
+                if (!cardPattern.test(this.idCard)){
+                    this.setTip(0,'请输入正确的身份证号码！');
+                }else if (this.userName===''){
+                    this.setTip(1,'请输入姓名！');
+                }else {
+                    this.isVerify = true;
+                }
+            },
+
+            setTip(num,text){
+                this.num = num;
+                this.tip = text;
+            },
+            comeback(){
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

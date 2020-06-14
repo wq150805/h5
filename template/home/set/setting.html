@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统设置</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <link rel="stylesheet" href="../../../static/css/element-ui.css">
+    <script src="../../../static/js/element-ui.js"></script>
+</head>
+<style>
+    .page_box {
+        padding-top: 3rem;
+    }
+    .container {
+        padding-bottom: 1rem;
+    }
+
+    .input_item {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f2f2f2;
+        background: #fff;
+    }
+
+    .lab{
+        display: block;
+        color: #333;
+        width: 5rem;
+    }
+    .text_box{
+        width: calc(100% - 5rem);
+        height: 1.8rem;
+        text-align: right;
+        line-height: 1.8rem;
+        color: #999999;
+    }
+    .text_box input{
+        resize: none;
+        box-sizing: border-box;
+        outline: none;
+        width:100%;
+        line-height: 1.8rem;
+        text-align: right;
+        font-size: 0.8rem;
+    }
+
+    .tip {
+        color: #bbb;
+        font-size: 0.7rem;
+    }
+    .error_tip {
+        color: #dd6161;
+        height: 1rem;
+        margin-top: 1rem;
+        padding-left: 0.8rem;
+    }
+    .submit_btn {
+        width: 70%;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        color: #fff;
+        background:#fa5353;
+        border-radius: 1rem;
+        font-size: 0.78rem;
+        margin: 2rem auto 0;
+    }
+
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../../static/img/back_white.png">
+        </i>
+        系统设置
+    </div>
+    <div class="container" v-loading="loading">
+        <div class="input_item">
+            <span class="lab">用户昵称</span>
+            <div class="text_box" v-if="isChange" >
+                <input placeholder="请填写用户昵称" type="text" v-model="userName" @input="setTip('','')" @blur="isChange=false"/>
+            </div>
+            <div class="text_box" v-else @click="isChange=true">{{userName}}</div>
+        </div>
+        <div class="input_item">
+            <span class="lab">账号</span>
+            <div class="text_box">{{account}}</div>
+        </div>
+        <div class="input_item">
+            <span class="lab">会员等级</span>
+            <div class="text_box">{{vip}}</div>
+        </div>
+        <div class="input_item">
+            <span class="lab">版本号</span>
+            <div class="text_box">{{version}}</div>
+        </div>
+        <p class="tip error_tip">{{tip}}</p>
+        <p class="submit_btn" @click="submitForm">确定提交</p>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userName:'15959229848',
+            account:'15959229848',
+            vip:'会员',
+            version:'1.02',
+            loading:false,
+            tip:'',
+            num:'',
+            isChange:false
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            submitForm() {
+                if (this.userName===''){
+                    this.setTip(0,'请输入昵称！');
+                }else {
+
+                }
+            },
+
+            setTip(num,text){
+                this.num = num;
+                this.tip = text;
+            },
+            comeback(){
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

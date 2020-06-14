@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>质押记录</title>
+  <script src="../../../static/js/vue.min.js"></script>
+  <script src="../../../static/js/setSize.js"></script>
+  <script src="../../common/menu.js"></script>
+  <link rel="stylesheet" href="../../../static/css/menu.css">
+  <link rel="stylesheet" href="../../../static/css/reset.css">
+  <link rel="stylesheet" href="../../../static/css/swiper.min.css">
+  <script src="../../../static/js/swiper.min.js"></script>
+</head>
+<style>
+
+  .page_box {
+    background: #fff;
+    padding: 10rem 0 1rem 0;
+  }
+
+  .count_box {
+    position: fixed;
+    top: 2.3rem;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 1rem 0;
+    color: #fff;
+    background: #898AF7;
+  }
+
+  .total {
+    position: relative;
+    margin-bottom: 1rem;
+    padding-bottom: 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .total p {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .total a {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0;
+    color: #fad625;
+  }
+
+  .total img {
+    width: 0.8rem;
+    margin-right: 0.4rem;
+  }
+
+
+  .money {
+    display: flex;
+  }
+
+  .money div {
+    flex: 1;
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .money div:first-child {
+    border-right: 1px solid #fff;
+  }
+
+  .money div p {
+    line-height: 1.4rem;
+  }
+
+  .container {
+    padding: 0.6rem 0;
+  }
+
+  .list_box {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
+  }
+
+  .list_item {
+    width: calc(50% - 0.2rem);
+    box-sizing: border-box;
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 0.3rem;
+    border-radius: 2px;
+  }
+
+  .list_item:nth-child(2n) {
+    margin-left: 0.4rem;
+  }
+
+  .list_item img {
+    width: 100%;
+  }
+
+  .list_item .detail {
+  }
+
+  .list_item .detail p {
+    display: flex;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+    color: #5b5ca5;
+  }
+
+  .list_item .detail .money {
+    color: rgba(251, 179, 17, 0.98);
+  }
+
+  .send_btn {
+    display: block;
+    width: 80%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    margin: 0.5rem auto 0;
+    text-align: center;
+    color: #fff;
+    font-size: 0.75rem;
+    background: #898AF7;
+    border-radius: 1rem;
+  }
+
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .notice_box {
+    margin: 0.5rem 0;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .notice {
+    width:calc(100% - 1.7rem) ;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    overflow: hidden;
+    font-size: 0.78rem;
+    color: #212149;
+  }
+  .notice_box img{
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .notice_detail {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+
+  .popup {
+    position: fixed;
+    z-index: 1001;
+    width: 80%;
+    left: 50%;
+    top:50%;
+    margin: -6rem 0 0 -40%;
+    background: #fff;
+    border-radius: 0.5rem;
+  }
+
+  .pop_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+  }
+  .pop_head i{
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 1.4rem;
+    background: #e40000;
+  }
+  .pop_head i img{
+    width: 1rem;
+    height: 1rem;
+  }
+  .pop_body {
+    padding: 1rem 1.5rem;
+  }
+  .pop_body p{
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .pop_body p span{
+    color: orange;
+  }
+
+  .operate_btn {
+    background:#ff8300 ;
+    color:#fff;
+    font-size: 0.75rem;
+    display: block;
+    width: 5rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+  }
+</style>
+<body>
+<div class="page_box" id="app">
+  <div class="page_head">
+    <i @click="comeback">
+      <img src="../../../static/img/back_white.png">
+    </i>
+    我的质押
+  </div>
+  <div class="container">
+    <div class="count_box" id="count">
+      <div class="total">
+        <p>
+          <img src="../../../static/img/home/diamond.png">
+          <span>{{total}}</span>
+        </p>
+      </div>
+      <div class="money">
+        <div>
+          <p>可用</p>
+          <p>{{total-freeze}}</p>
+        </div>
+        <div>
+          <p>冻结</p>
+          <p>{{freeze}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- 数据列 -->
+    <div class="list_box">
+      <div v-for="(item,index) in list" :key="index" class="list_item">
+        <img :src="item.icon">
+        <div class="detail">
+          <p>需要质押：{{item.value}}</p>
+          <p>最低质押：<i class="money">{{item.lowest}}</i></p>
+          <p>目前质押：{{item.current}}</p>
+        </div>
+        <span class="send_btn" @click="chooseItem(item)">重新质押</span>
+      </div>
+    </div>
+  </div>
+  <div v-if="isTip">
+    <div class="mask"></div>
+    <div class="popup">
+      <div class="pop_head">
+        <span>提示</span>
+        <i @click="isTip=false">
+          <img src="../../../static/img/close_white.png">
+        </i>
+      </div>
+      <div class="pop_body">
+        <p>预约抢购 <span>{{diamond.name}}</span></p>
+        <p>需要质押 <span>273.55BOCC</span></p>
+        <span class="operate_btn">质押BOCC</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total:143,
+            freeze:10,
+            list: [
+                {
+                    id: 1,
+                    icon: '../../../static/img/demo/icon1.png',
+                    value: '1000',
+                    current: '1000',
+                    lowest: '500',
+                    name:'赤焰红钻'
+                }, {
+                    id: 2,
+                    icon: '../../../static/img/demo/icon2.png',
+                    value: '1000',
+                    current: '1000',
+                    lowest: '500',
+                    name:'优雅紫钻'
+                }, {
+                    id: 3,
+                    icon: '../../../static/img/demo/icon3.png',
+                    value: '1000',
+                    current: '1000',
+                    lowest: '500',
+                    name:'金典黄钻'
+                }, {
+                    id: 4,
+                    icon: '../../../static/img/demo/icon4.png',
+                    value: '1000',
+                    current: '1000',
+                    lowest: '500',
+                    name:'至尊黑钻'
+                },
+            ],
+            diamond:{},
+            isTip:false
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            chooseItem:function(obj){
+                this.isTip = true;
+                this.diamond = obj;
+            },
+
+            gotoDetail:function(){
+                window.location.href = '../index/orderDetail.html'
+            },
+
+            comeback() {
+                window.location.href = '../home.html';
+            }
+        }
+    })
+
+
+</script>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>付款方式</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <link rel="stylesheet" href="../../../static/css/element-ui.css">
+    <script src="../../../static/js/element-ui.js"></script>
+</head>
+<style>
+    .page_box {
+        padding-top: 3rem;
+        background: #fff;
+    }
+    .container {
+        padding:0 0.8rem 1rem;
+    }
+
+    .list_item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0.5rem;
+        border-radius: 2px;
+        background: rgba(213, 214, 255, 0.42);
+        margin-bottom: 0.4rem;
+    }
+
+    .left_item {
+        display: flex;
+        align-items: center;
+        font-size: 0.85rem;
+    }
+    .left_item img{
+        width: auto;
+        height: 1.5rem;
+    }
+
+    .left_item span {
+        line-height: 1.5rem;
+        margin-left: 0.5rem;
+    }
+
+    .right_item {
+        display: flex;
+        align-items: center;
+        font-size: 0.78rem;
+        color: #7f81de;
+    }
+
+    .right_item i{
+        display: block;
+        width: 0.8rem;
+        height: 0.8rem;
+        background: url("../../../static/img/home/choose.png")no-repeat;
+        background-size: 100% 100%;
+        margin-left: 0.5rem;
+    }
+
+    .add_way {
+       background: #f2f2f2;
+        justify-content: flex-start;
+        font-size: 0.85rem;
+        line-height: 1.5rem;
+        color: #868585;
+    }
+
+    .add_way img{
+        width: 1.2rem;
+        margin-right: 0.5rem;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../../static/img/back_white.png">
+        </i>
+        付款方式
+    </div>
+    <div class="container">
+        <div class="list_item" v-for="(item,index) in cardList" :key="index" @click="bindCard(item.id)">
+            <div class="left_item">
+                <img :src="item.logo">
+                <span>{{item.name}}</span>
+            </div>
+            <div class="right_item">
+                <span>已绑定</span>
+                <i></i>
+            </div>
+        </div>
+        <div class="list_item add_way" @click="bindCard('')">
+            <img src="../../../static/img/add.png">
+            <span>添加支付方式</span>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            cardList:[
+                {
+                    id:1,
+                    type:0,
+                    name:'绑定支付宝',
+                    logo:'../../../static/img/home/alipay.png'
+                }, {
+                    id:2,
+                    type:0,
+                    name:'绑定微信',
+                    logo:'../../../static/img/home/wxchat.png'
+                }, {
+                    id:3,
+                    type:0,
+                    name:'绑定银行卡',
+                    logo:'../../../static/img/home/bank.png'
+                },
+            ]
+        },
+        mounted: function () {
+
+        },
+
+        methods: {
+            bindCard:function(id){
+                window.location.href = '../bank/bindCard.html?cardId='+id;
+            },
+            comeback(){
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

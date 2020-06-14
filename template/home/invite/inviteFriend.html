@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邀请好友</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <script src="../../common/menu.js"></script>
+    <link rel="stylesheet" href="../../../static/css/menu.css">
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <script src="../../../static/js/jquery1.8.2.min.js"></script>
+    <script src="../../../static/js/common.js"></script>
+
+</head>
+<style>
+    .page_box {
+        background: url("../../../static/img/home/invite_bg.jpg")no-repeat center;
+        background-size: auto 100%;
+    }
+    .container {
+        text-align: center;
+        padding-top: 12rem;
+    }
+    .qr_code {
+        width: 8rem;
+    }
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../../static/img/back_white.png">
+        </i>
+        邀请好友
+    </div>
+    <div class="container" >
+        <img src="../../../static/img/home/qrcode.jpg" class="qr_code">
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        mounted: function () {},
+
+        methods: {
+
+            comeback() {
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

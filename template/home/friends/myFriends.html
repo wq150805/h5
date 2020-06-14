@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的团队</title>
+    <script src="../../../static/js/vue.min.js"></script>
+    <script src="../../../static/js/setSize.js"></script>
+    <script src="../../common/menu.js"></script>
+    <link rel="stylesheet" href="../../../static/css/menu.css">
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <script src="../../../static/js/jquery1.8.2.min.js"></script>
+    <script src="../../../static/js/common.js"></script>
+
+</head>
+<style>
+    .menu {
+        position: relative;
+        display: flex;
+        margin-bottom: 0.5rem;
+        background: #fff;
+    }
+    .menu span{
+        flex: 1;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        text-align: center;
+        font-size: 0.78rem;
+    }
+    .menu .choose {
+        color: #898AF7;
+    }
+    .underline {
+        position: absolute;
+        bottom: 0;
+        left:1.7rem;
+        width:3rem;
+        height: 2px;
+        background: #898AF7;
+        transition: all 0.5s ease-out;
+    }
+    .list_line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0.8rem;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 0.75rem;
+        color: #333;
+        background: #fff;
+    }
+
+    .line_left {
+        display: flex;
+        align-items: center;
+        color: #999999;
+    }
+    .line_left p {
+        display: flex;
+        align-items: center;
+        line-height: 1rem;
+    }
+
+    .line_left img {
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 100%;
+        margin-right: 0.8rem;
+    }
+
+    .list_line div p:last-child {
+        margin-top: 0.3rem;
+        font-size: 0.7rem;
+    }
+    .line_right {
+        text-align: right;
+        color: #898AF7;
+        font-size: 0.7rem;
+    }
+
+    .line_right p:last-child {
+        color: #bbb;
+        margin-top: 0.5rem;
+    }
+
+    .line_right .unactive {
+        color: #ffca13;
+    }
+
+    .end {
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 0.75rem;
+        color: #bbb;
+    }
+
+
+
+</style>
+<body>
+<div class="page_box" id="app">
+    <div class="page_head">
+        <i @click="comeback">
+            <img src="../../../static/img/back_white.png">
+        </i>
+        我的团队
+    </div>
+    <div class="container" >
+        <div class="menu">
+            <span v-for="(item,index) in menus" :key="index" :class="{'choose':menuIndex===index}" @click="chooseMenu(index)">{{item}}</span>
+            <i class="underline" :style="'left:'+left+'rem'"></i>
+        </div>
+        <div class="detail_box">
+            <div class="list_line" v-for="(item,index) in record" :key="index">
+                <div class="line_left">
+                    <img :src="item.avatar">
+                    <div>
+                        <p>{{item.name}}</p>
+                        <p>ID:{{item.id}}</p>
+                    </div>
+                </div>
+                <div class="line_right">
+                    <p :class="{'unactive':item.status===0}">{{item.status?'已激活':'未激活'}}</p>
+                    <p>好友人数:{{item.friends}}</p>
+                </div>
+            </div>
+            <div class="end">
+                <p v-if="hasMore">努力加载中</p>
+                <p v-else>—— END ——</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total:143,
+            record: [
+                {
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:0,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:0,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },{
+                    avatar:'../../../static/img/avatar.jpg',
+                    name: '15959229847',
+                    id: '15959229847',
+                    status:1,
+                    friends: 143
+                },
+            ],
+            hasMore: false,
+            menus:['分享好友','推广好友','间接好友'],
+            menuIndex:0,
+            left:1.7
+        },
+        mounted: function () {},
+
+        methods: {
+            chooseMenu(index){
+                this.menuIndex = index;
+                if (index===0){
+                    this.left = 1.7;
+                }else if (index===1){
+                    this.left = 8.5;
+                }else {
+                    this.left =15.1;
+                }
+            },
+            comeback() {
+                window.location.href = '../home.html';
+            }
+        }
+    })
+</script>
+</html>

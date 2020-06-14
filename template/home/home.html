@@ -160,11 +160,11 @@
         </div>
         <div class="assets">
             <div class="assets_line">
-                <div @click="gotoDetail('../home/currency.html')">
+                <div @click="gotoDetail('../home/money/currency.html')">
                     <p>0.0</p>
                     <p>金币</p>
                 </div>
-                <div @click="gotoDetail('../home/baitiao.html')">
+                <div @click="gotoDetail('../home/baitiao/baitiao.html')">
                     <p>0.0</p>
                     <p>白条</p>
                 </div>
@@ -178,18 +178,18 @@
                     <p>0.0</p>
                     <p>累计收益</p>
                 </div>
-                <div @click="gotoDetail('../home/popularize.html')">
+                <div @click="gotoDetail('../home/popularize/popularize.html')">
                     <p>0.0</p>
                     <p>推广收益</p>
                 </div>
-                <div @click="gotoDetail('../home/teamBenefits.html')">
+                <div @click="gotoDetail('../home/team/teamBenefits.html')">
                     <p>0.0</p>
                     <p>团队收益</p>
                 </div>
             </div>
         </div>
         <div class="record">
-            <div v-for="(item,index) in records" :key="index">
+            <div v-for="(item,index) in records" :key="index" @click="gotoDetail(item.url)">
                 <img :src="item.icon">
                 <p>{{item.name}}</p>
             </div>
@@ -222,42 +222,42 @@
         data: {
             records:[
                 {
-                    url:'',
+                    url:'../home/purchase/record.html',
                     icon:'../../static/img/home/gm.png',
                     name:'购买记录'
                 },{
-                    url:'',
+                    url:'../home/transfer/record.html',
                     icon:'../../static/img/home/zr.png',
                     name:'转让记录'
                 },{
-                    url:'',
+                    url:'../home/pledge/record.html',
                     icon:'../../static/img/home/zy.png',
                     name:'质押记录'
                 },
             ],
             others:[
                 {
-                    url:'../home/currency.html',
+                    url:'../home/safe/safeCenter.html',
                     icon:'../../static/img/home/safe.png',
                     name:'安全中心'
                 }, {
-                    url:'',
+                    url:'../home/verified/infoVerified.html',
                     icon:'../../static/img/home/certification.png',
                     name:'实名认证'
                 }, {
-                    url:'',
+                    url:'../home/bank/cardList.html',
                     icon:'../../static/img/home/card.png',
                     name:'我的银行卡'
                 }, {
-                    url:'',
+                    url:'../home/friends/myFriends.html',
                     icon:'../../static/img/home/team.png',
                     name:'我的团队'
                 }, {
-                    url:'',
+                    url:'../home/invite/inviteFriend.html',
                     icon:'../../static/img/home/invite.png',
                     name:'邀请好友'
                 }, {
-                    url:'',
+                    url:'../home/set/setting.html',
                     icon:'../../static/img/home/set.png',
                     name:'设置'
                 }
