@@ -42,8 +42,12 @@
     transition: all 0.5s ease-out;
   }
 
+  .detail_box {
+    padding: 0 0.8rem;
+  }
+
   .list_line {
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0;
     border-bottom: 1px solid #f3f3f3;
     font-size: 0.75rem;
     color: #333;
@@ -51,62 +55,122 @@
     margin-bottom: 0.5rem;
   }
 
-  .list_line .box{
-    border-bottom: 1px solid #f2f2f2;
-  }
 
-  .order_info span{
-    line-height: 2rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-  }
-
-  .box div span:first-child {
-    margin-right: 0.5rem;
-  }
-
-  .order_info i {
-    color: orange;
-  }
-
-  .box:last-child {
-    border-bottom: none;
-  }
-  .box div {
-    line-height: 1.8rem;
-  }
-
-  .box div img{
-    width: 1.4rem;
-  }
-
-  .box .lab {
+  .order_num {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.73rem;
     color: #999;
   }
 
+  .order_num span:nth-child(2){
+    background: orange;
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    width: 2.5rem;
+    text-align: center;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+    padding: 0 0.4rem;
+  }
 
-  .pay_way {
+
+  .order_box {
+    display: flex;
+    padding: 0 0.8rem;
+  }
+
+  .cover {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+  }
+
+  .basic_info {
+    width: calc(100% - 2.8rem);
+    margin-left: 0.8rem;
+  }
+
+  .basic_info p{
+    margin-bottom: 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .basic_info p:first-child{
+    display: flex;
     justify-content: space-between;
   }
 
-  .flex_box {
-    display: flex;
-    align-items: center;
+  .basic_info p span:last-child{
+    color: #898AF7;
   }
 
-  .pay {
-    margin: 0 1rem ;
+  .btn_box {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 0.8rem 0;
+    border-top: 1px solid #f2f2f2;
+  }
+  .btn_box::before {
+    position: absolute;
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-bottom-right-radius:100% ;
+    border-top-right-radius:100% ;
+    background: #F7F6FB;
+    left: -0.1rem;
+    top: -0.25rem;
+  }
+
+  .btn_box::after {
+    position: absolute;
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-bottom-left-radius:100% ;
+    border-top-left-radius:100% ;
+    background: #F7F6FB;
+    right: -0.1rem;
+    top: -0.25rem;
+  }
+
+  .btn_box span{
+    display: block;
+    width: 4rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    border: 1px solid #898AF7;
+    color: #898AF7;
+    border-radius: 4px;
   }
 
   .end {
     text-align: center;
     margin-top: 1rem;
     padding-bottom: 1rem;
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     color: #bbb;
   }
 
+  .no_data {
+    text-align: center;
+    padding: 5rem 0;
+    font-size: 0.75rem;
+    color: #999;
+  }
 
+  .no_data img{
+    width: 4rem;
+    margin-bottom: 0.5rem;
+  }
 </style>
 <body>
 <div class="page_box" id="app">
@@ -121,62 +185,49 @@
       <span v-for="(item,index) in menus" :key="index" :class="{'choose':menuIndex===index}" @click="chooseMenu(index)">{{item}}</span>
       <i class="underline" :style="'left:'+left+'rem'"></i>
     </div>
-    <div class="detail_box">
+    <div class="detail_box" v-if="record&&record.length!==0">
       <div class="list_line" v-for="(item,index) in record" :key="index">
-        <div class="box">
-          <div class="order_info">
-            <span>订单号</span>
-            <span>{{item.orderNum}}</span>
+        <div class="order_num">
+          <span>订单编号：{{item.order}}</span>
+          <span>{{item.enable===1?'已转让':'转让中'}}</span>
+        </div>
+        <div class="order_box">
+          <img :src="item.icon" class="cover">
+          <div class="basic_info">
+            <p>
+              <span>{{item.name}}</span>
+              <span>获得收益{{item.income*100+'%'}}</span>
+            </p>
+            <p>
+              <span>物品价格</span>
+              <span>{{item.price}}</span>
+            </p>
+            <p>
+              <span>合约收益</span>
+              <span>{{item.day}}/{{item.contractRevenue*100+'%'}}</span>
+            </p>
+            <p>
+              <span>转让时间</span>
+              <span>{{item.createTime}}</span>
+            </p>
+            <p>
+              <span>支付状态</span>
+              <span>{{item.enable===1?'已确认':'待确认'}}</span>
+            </p>
           </div>
         </div>
-        <div class="box">
-          <div class="order_info">
-            <span>订单金额(CNY)</span>
-            <i>{{item.price}}</i>
-          </div>
-          <div>
-            <span class="lab">买家</span>
-            <span>{{item.buyer}}</span>
-          </div>
-          <div>
-            <span class="lab">实名信息</span>
-            <span>{{item.trueName}}</span>
-          </div>
-          <div>
-            <span class="lab">手机号</span>
-            <span>{{item.phone}}</span>
-          </div>
-          <div>
-            <span class="lab">上一代昵称</span>
-            <span>{{item.userName}}</span>
-          </div>
-          <div>
-            <span class="lab">上一代手机号</span>
-            <span>{{item.userPhone}}</span>
-          </div>
-        </div>
-        <div class="box">
-          <div class="order_info"><span>我的收款方式</span></div>
-          <div>
-            <span class="lab">付款备注</span>
-            <span>{{item.remark}}</span>
-          </div>
-          <div class="pay_way flex_box">
-            <div class="flex_box">
-              <img src="../../../static/img/home/alipay.png" v-if="item.type===1">
-              <img src="../../../static/img/home/wxchat.png" v-if="item.type===2">
-              <img src="../../../static/img/home/bank.png" v-if="item.type===0">
-              <span class="pay">{{item.type===0?'银行卡':(item.type===1?'支付宝':'微信')}}</span>
-              <span>{{item.seller}}</span>
-            </div>
-           <div>{{item.selPhone}}</div>
-          </div>
+        <div class="btn_box">
+          <span>查看详情</span>
         </div>
       </div>
       <div class="end">
         <p v-if="hasMore">努力加载中</p>
         <p v-else>—— END ——</p>
       </div>
+    </div>
+    <div class="no_data" v-else>
+      <img src="../../../static/img/no_data.png">
+      <p>暂无数据</p>
     </div>
   </div>
 </div>
@@ -187,19 +238,28 @@
         data: {
             total: 143,
             record: [
-                {
-                    orderNum:'18748',
-                    type:1,
-                    remark:'305793',
-                    seller:'孙悦',
-                    selPhone:'15959669874',
-                    buyer:'嘟嘟',
-                    price:'2371',
-                    trueName:'邱绍生',
-                    phone:'15859157859',
-                    userName:'嘻嘻哈哈',
-                    userPhone:'18060453698'
-                }
+              {
+                order:'2020061609311718604',
+                icon:'../../../static/img/demo/icon1.png',
+                name:'蓝云绿茶',
+                price:419,
+                enable:1,
+                createTime:'2020-06-16 09:31:11',
+                income:0.2515,
+                contractRevenue:0.09,
+                day:3
+              },
+              {
+                order:'2020061609311718604',
+                icon:'../../../static/img/demo/icon2.png',
+                name:'蓝云绿茶',
+                price:419,
+                enable:1,
+                createTime:'2020-06-16 09:31:11',
+                income:0.2515,
+                contractRevenue:0.09,
+                day:3
+              }
             ],
             hasMore: false,
             menus: ['转让', '已完成', '取消/申诉'],
