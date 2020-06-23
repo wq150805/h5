@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta  charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>我的</title>
     <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/setSize.js"></script>
@@ -21,7 +21,7 @@
 
     .bg {
         padding: 4rem 1rem 3rem;
-        background: linear-gradient(to bottom right, #8c8dff, #a2a3ef);
+        background: linear-gradient(to bottom right, #2D85FE, #3163F7);
     }
 
     .user {
@@ -77,11 +77,13 @@
         flex: 1;
         text-align: center;
         font-size: 0.78rem;
-        color: #898AF7;
+        color: #999;
     }
 
     .assets .assets_line div p:first-child {
         margin-bottom: 0.4rem;
+        color: #000;
+        font-size: 0.85rem;
     }
 
     .record {
@@ -97,12 +99,12 @@
     .record div {
         flex: 1;
         text-align: center;
-        color: #898AF7;
+        color: #000;
         font-size: 0.75rem;
     }
 
     .record div img {
-        width: 1.2rem;
+        width: 1.8rem;
     }
 
     .record div p {
@@ -111,36 +113,51 @@
 
     .other {
         margin-top: 1rem;
-        padding: 0.5rem 0;
-        background: #fff;
+        padding: 0 0.5rem;
     }
 
     .other_line {
-        display: flex;
-        padding: 0.5rem 0;
+        padding: 0.2rem 0.8rem;
+        text-align: left;
+        background: #fff;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
     }
 
-    .other_line div {
-        flex: 1;
-        text-align: center;
+    .other_line .other_item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 2rem;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .other_line .other_item:last-child {
+        border-bottom:none;
+    }
+
+    .line_name {
+        display: flex;
         align-items: center;
     }
 
-    .other_line .other_item div {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        height: 2rem;
-    }
-
     .other_item img {
-        width: 2rem;
+        width: 1.2rem;
         height: auto;
     }
 
-    .other_line p {
+    .other_item span {
         font-size: 0.75rem;
-        margin-top: 0.5rem;
+        color: #999;
+        margin-left: 0.4rem;
+    }
+
+    .other_item i {
+        display: block;
+        width: 0.8rem;
+        height: 0.8rem;
+        background: url('../../static/img/goto.png')no-repeat;
+        background-size: 100% 100%;
     }
 </style>
 <body>
@@ -190,25 +207,34 @@
         </div>
         <div class="record">
             <div v-for="(item,index) in records" :key="index" @click="gotoDetail(item.url)">
-                <img :src="item.icon">
-                <p>{{item.name}}</p>
+                <div>
+                    <img :src="item.icon">
+                    <p>{{item.name}}</p>
+                </div>
             </div>
         </div>
         <div class="other">
             <div class="other_line">
                 <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index<3" @click="gotoDetail(item.url)">
-                    <div>
+                    <div class="line_name">
                         <img :src="item.icon">
+                        <span>{{item.name}}</span>
                     </div>
-                    <p>{{item.name}}</p>
+                    <div>
+                        <i></i>
+                    </div>
                 </div>
             </div>
+
             <div class="other_line">
                 <div class="other_item" v-for="(item,index) in others" :key="index" v-if="index>=3"  @click="gotoDetail(item.url)">
-                    <div>
+                    <div class="line_name">
                         <img :src="item.icon">
+                        <span>{{item.name}}</span>
                     </div>
-                    <p>{{item.name}}</p>
+                    <div>
+                        <i></i>
+                    </div>
                 </div>
             </div>
         </div>

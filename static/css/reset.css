@@ -137,7 +137,7 @@ input:-ms-input-placeholder {
   text-align: center;
   font-weight: bold;
   line-height: 2.4rem;
-  background: #898AF7;
+  background: linear-gradient(to bottom right, #2D85FE, #3163F7);
   letter-spacing: 4px;
 }
 
